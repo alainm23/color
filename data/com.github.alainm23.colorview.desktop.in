@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Planner
+GenericName=Color View
+Comment=Visualizador y convertidor de colores.
+Categories=GTK;Utility;Graphics;Development;
+Exec=com.github.alainm23.colorview
+Icon=com.github.alainm23.colorview
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=colorview
+Keywords=color;colorview;converter;hex;rgb;view;cmyk;

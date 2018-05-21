@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/github/alainm23/colorview/" id="com.github.alainm23.colorview" gettext-domain="com.github.alainm23.colorview">
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Window X position</summary>
+      <description>Stores the window's last X position</description>
+    </key>
+  </schema>
+</schemalist>
