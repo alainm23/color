@@ -1,4 +1,5 @@
 ## Color View
+Visualizer and color converter to hex, rgb, etc 
 
 ## Installation
 
