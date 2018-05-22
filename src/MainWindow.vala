@@ -21,11 +21,15 @@
 
 namespace ColorView {
     public class MainWindow : Gtk.Window {
+        private Gtk.Switch dark_siwtch;
         private Widgets.ColorButton color_button;
         private Gtk.Entry hex_entry;
-        private Gtk.Entry r_entry;
-        private Gtk.Entry g_entry;
-        private Gtk.Entry b_entry;
+        private Gtk.SpinButton r_button;
+        private Gtk.SpinButton g_button;
+        private Gtk.SpinButton b_button;
+        private Gtk.SpinButton a_button;
+
+        private bool rgb_changed = false;
 
         public MainWindow (Gtk.Application application) {
             Object (
@@ -53,6 +57,9 @@ namespace ColorView {
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+            //dark_siwtch = new Gtk.Switch ();
+            //headerbar.pack_end (dark_siwtch);
+
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.margin_left = 24;
@@ -62,71 +69,108 @@ namespace ColorView {
             color_button = new Widgets.ColorButton ();
 
             hex_entry = new Gtk.Entry ();
-            hex_entry.placeholder_text = "#3689e6";
+            hex_entry.text = "#7a36b1";
+            hex_entry.placeholder_text = "#7a36b1";
             hex_entry.max_length = 7;
+            hex_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY, "edit-copy");
 
-            var hex_label = new Gtk.Label (_("<b>Hex</b>"));
-            hex_label.halign = Gtk.Align.END;
-            hex_label.margin_right = 12;
-            hex_label.use_markup = true;
-            hex_label.get_style_context ().add_class ("h3");
+            r_button = new Gtk.SpinButton.with_range (0, 255, 1);
+            r_button.tooltip_text = _("Red");
 
-            var hex_box = new Gtk.Grid ();
-            hex_box.margin_top = 24;
-            hex_box.halign = Gtk.Align.END;
-            //hex_box.column_homogeneous = true;
-            hex_box.attach (hex_label, 0, 0, 1, 1);
-            hex_box.attach (hex_entry, 1, 0, 1, 1);
+            g_button = new Gtk.SpinButton.with_range (0, 255, 1);
+            g_button.tooltip_text = _("Green");
 
-            r_entry = new Gtk.Entry ();
-            r_entry.placeholder_text = "0-255";
-            r_entry.max_length = 3;
-
-            g_entry = new Gtk.Entry ();
-            g_entry.placeholder_text = "0-255";
-            g_entry.max_length = 3;
-
-            b_entry = new Gtk.Entry ();
-            b_entry.placeholder_text = "0-255";
-            b_entry.max_length = 3;
-
-            var box = new Gtk.Grid ();
-            box.add (r_entry);
-            box.add (g_entry);
-            box.add (b_entry);
-
-            var rgb_label = new Gtk.Label (_("<b>RGB</b>"));
-            rgb_label.halign = Gtk.Align.END;
-            rgb_label.margin_right = 12;
-            rgb_label.use_markup = true;
-            rgb_label.get_style_context ().add_class ("h3");
+            b_button = new Gtk.SpinButton.with_range (0, 255, 1);
+            b_button.tooltip_text = _("Blue");
 
             var rgb_box = new Gtk.Grid ();
-            rgb_box.margin_top = 12;
-            rgb_box.halign = Gtk.Align.END;
-            rgb_box.attach (rgb_label, 0, 0, 1, 1);
-            rgb_box.attach (box, 1, 0, 1, 1);
+            rgb_box.column_spacing = 6;
+            rgb_box.add (r_button);
+            rgb_box.add (g_button);
+            rgb_box.add (b_button);
 
             // All Signals
-            hex_entry.activate.connect ( () => {
-                if (hex_entry.text != "") {
-                    color_button.set_color (hex_entry.text);
+            hex_entry.changed.connect ( () => {
+                rgb_changed = false;
+                change_color ();
+            });
+
+            r_button.value_changed.connect ( () => {
+                rgb_changed = true;
+                change_color ();
+            });
+
+            g_button.value_changed.connect ( () => {
+                rgb_changed = true;
+                change_color ();
+            });
+
+            b_button.value_changed.connect ( () => {
+                rgb_changed = true;
+                change_color ();
+            });
+
+            hex_entry.icon_press.connect ( (pos, event) => {
+                if (pos == Gtk.EntryIconPosition.SECONDARY) {
+                    Gtk.Clipboard.get_default (this.get_display ()).set_text (hex_entry.text, -1);
                 }
             });
 
-            hex_entry.changed.connect ( () => {
-                if (hex_entry.text != "") {
-                    color_button.set_color (hex_entry.text);
-                }
-            });
+            r_button.value = rgb_color ("r");
+            g_button.value = rgb_color ("g");
+            b_button.value = rgb_color ("b");
+
 
             main_grid.add (color_button);
-            main_grid.add (hex_box);
-            //main_grid.add (rgb_box);
+            main_grid.add (new Granite.HeaderLabel (_("Hex")));
+            main_grid.add (hex_entry);
+            main_grid.add (new Granite.HeaderLabel (_("RGB")));
+            main_grid.add (rgb_box);
 
             set_titlebar (headerbar);
             add (main_grid);
             show_all ();
+        }
+
+        private string hex_string () {
+            string s = "#%02x%02x%02x"
+                .printf((uint) (r_button.value),
+                        (uint) (g_button.value),
+                        (uint) (b_button.value));
+            return s;
+        }
+
+        private double rgb_color (string type) {
+             Gdk.RGBA color = Gdk.RGBA ();
+             color.parse (hex_entry.text);
+
+             if (type == "r") {
+                 return color.red * 255;
+             } else if (type == "g") {
+                 return color.green * 255;
+             } else {
+                 return color.blue * 255;
+             }
+        }
+
+        private void change_color () {
+            string hex = "";
+
+            if (rgb_changed) {
+                hex = hex_string ();
+            } else {
+                if (hex_entry.text != "") {
+                    hex = hex_entry.text;
+                }
+            }
+            /*
+            hex_entry.text = hex;
+
+            r_button.value = rgb_color ("r");
+            g_button.value = rgb_color ("g");
+            b_button.value = rgb_color ("b");
+            */
+            color_button.set_color (hex);
         }
     }
 }
