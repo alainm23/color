@@ -23,7 +23,7 @@ namespace ColorView {
     public class ColorView : Gtk.Application {
         public ColorView () {
             Object (
-                application_id: "com.github.alainm23.colorview",
+                application_id: "com.github.alainm23.color",
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }
@@ -39,7 +39,7 @@ namespace ColorView {
             add_accelerator ("<Control>q", "app.quit", null);
 
             var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/com/github/alainm23/colorview/stylesheet.css");
+            provider.load_from_resource ("/com/github/alainm23/color/stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             quit_action.activate.connect (() => {

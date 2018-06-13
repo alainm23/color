@@ -46,24 +46,24 @@ namespace ColorView {
         public MainWindow (Gtk.Application application) {
             Object (
                 application: application,
-                icon_name: "com.github.alainm23.colorview",
+                icon_name: "com.github.alainm23.color",
                 resizable: false,
                 width_request: 500,
                 height_request: 600,
-                title: _("Color View"),
+                title: _("Color"),
                 window_position: Gtk.WindowPosition.CENTER
             );
 
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-            default_theme.add_resource_path ("/com/github/alainm23/colorview");
+            default_theme.add_resource_path ("/com/github/alainm23/color");
 
             build_ui ();
         }
 
         private void build_ui () {
             var headerbar = new Gtk.HeaderBar ();
-            headerbar.title = _("Color View");
+            headerbar.title = _("Color");
             headerbar.show_close_button = true;
             headerbar.get_style_context ().add_class ("titlebar");
             headerbar.get_style_context ().add_class ("default-decoration");

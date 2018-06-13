@@ -1,4 +1,4 @@
-project('com.github.alainm23.colorview', 'vala', 'c')
+project('com.github.alainm23.color', 'vala', 'c')
 
 gnome = import('gnome')
 i18n = import('i18n')

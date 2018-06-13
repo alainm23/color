@@ -1,7 +1,6 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/github/alainm23/colorview">
+  <gresource prefix="/com/github/alainm23/color">
     <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
   </gresource>
 </gresources>
