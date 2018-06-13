@@ -1,5 +1,5 @@
-## Color View
-Visualizer and color converter to hex, rgb, etc 
+## Color
+Create and save perfect palettes in seconds!
 
 ## Installation
 
@@ -11,6 +11,7 @@ These dependencies must be present before building
  - `libgranite-dev`
  - `libgtk-3-dev`
  - `libglib2.0-dev`
+ - `libsqlite3-dev`
 
 ### Building
 
@@ -19,10 +20,10 @@ meson build --prefix=/usr
 cd build
 ninja test
 ```
-To install, use `ninja install`, then execute with `com.github.alainm23.colorview`
+To install, use `ninja install`, then execute with `com.github.alainm23.color`
 ```
 sudo ninja install
-com.github.alainm23.colorview
+com.github.alainm23.color
 ```
 
 ### Deconstruct

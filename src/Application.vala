@@ -19,9 +19,9 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-namespace ColorView {
-    public class ColorView : Gtk.Application {
-        public ColorView () {
+namespace Color {
+    public class Color : Gtk.Application {
+        public Color () {
             Object (
                 application_id: "com.github.alainm23.color",
                 flags: ApplicationFlags.FLAGS_NONE
@@ -53,7 +53,7 @@ namespace ColorView {
         private static int main (string[] args) {
             Gtk.init (ref args);
 
-            var app = new ColorView ();
+            var app = new Color ();
             return app.run (args);
         }
     }

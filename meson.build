@@ -25,7 +25,9 @@ executable(
     asresources,
     'src/Application.vala',
     'src/MainWindow.vala',
-    'src/Widgets/ColorButton.vala',
+    'src/Widgets/Headerbar.vala',
+    'src/Services/Settings.vala',
+    'src/Dialogs/Preferences.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('glib-2.0'),
