@@ -24,6 +24,12 @@ namespace Color {
         private Widgets.Headerbar headerbar;
         private Services.Settings settings;
 
+        private Widgets.Palette palette_01;
+        private Widgets.Palette palette_02;
+        private Widgets.Palette palette_03;
+        private Widgets.Palette palette_04; 
+        private Widgets.Palette palette_05;
+
         public MainWindow (Gtk.Application application) {
             Object (
                 application: application,
@@ -37,6 +43,8 @@ namespace Color {
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/alainm23/color");
+
+            //Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
 
             settings = new Services.Settings ();
             var window_x = settings.window_x;
@@ -66,7 +74,24 @@ namespace Color {
 
         private void build_ui () {
             headerbar = new Widgets.Headerbar ();
-            
+
+            palette_01 = new Widgets.Palette (1);
+            palette_02 = new Widgets.Palette (2);
+            palette_03 = new Widgets.Palette (3);
+            palette_04 = new Widgets.Palette (4);
+            palette_05 = new Widgets.Palette (5);
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.expand = true;
+            main_grid.column_homogeneous = true;
+
+            main_grid.add (palette_01);
+            main_grid.add (palette_02);
+            main_grid.add (palette_03);
+            main_grid.add (palette_04);
+            main_grid.add (palette_05);
+        
+            add (main_grid);
             set_titlebar (headerbar);
             show_all ();
         }

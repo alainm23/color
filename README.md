@@ -1,6 +1,8 @@
 ## Color
 Create and save perfect palettes in seconds!
 
+![Screenshot](data/screenshot/screenshot-1.png)
+
 ## Installation
 
 ### Dependencies

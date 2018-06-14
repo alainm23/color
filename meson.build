@@ -26,6 +26,7 @@ executable(
     'src/Application.vala',
     'src/MainWindow.vala',
     'src/Widgets/Headerbar.vala',
+    'src/Widgets/Palette.vala',
     'src/Services/Settings.vala',
     'src/Dialogs/Preferences.vala',
     dependencies: [

@@ -25,7 +25,6 @@ namespace Color {
         public int window_height { get; set; }
         public int window_x { get; set; }
         public int window_y { get; set; }
-        public bool dark { get; set; }
 
         public Settings () {
             base ("com.github.alainm23.color");

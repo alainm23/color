@@ -27,6 +27,7 @@ namespace Color {
         public Headerbar () {
             set_show_close_button (true);
             get_style_context ().add_class ("compact");
+            //get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
             build_ui ();
         }
@@ -43,7 +44,7 @@ namespace Color {
                 preferences_dialog.show_all ();
             });
 
-            pack_end (app_menu);
+            //pack_end (app_menu);
         }
     }
 }
