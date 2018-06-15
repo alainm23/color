@@ -27,18 +27,13 @@ namespace Color {
         public Color (Gtk.Widget relative) {
             relative_to = relative;
             modal = true;
-            position = Gtk.PositionType.TOP;
+            position = Gtk.PositionType.BOTTOM;
 
 
             build_ui ();
         }
 
         private void build_ui () {
-            var main_grid = new Gtk.Grid ();
-            main_grid.orientation = Gtk.Orientation.VERTICAL;
-            main_grid.margin = 12;
-            main_grid.expand = true;
-
             mode_button = new Granite.Widgets.ModeButton ();
             mode_button.append_text ("HSB");
             mode_button.append_text ("RGB");
@@ -48,6 +43,11 @@ namespace Color {
             main_stack = new Gtk.Stack ();
             main_stack.expand = true;
             main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.orientation = Gtk.Orientation.VERTICAL;
+            main_grid.margin = 6;
+            main_grid.expand = true;
 
             main_grid.add (mode_button);
             main_grid.add (main_stack);

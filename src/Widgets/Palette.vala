@@ -23,7 +23,9 @@ namespace Color {
     public class Widgets.Palette : Gtk.EventBox {
         private Gtk.Entry color_entry;
         private Gtk.Label second_label;
+        private Widgets.Popovers.Color color_popover;
         private int index;
+        private bool edit = false;
         private const string STYLE_CSS = """
                 .%s {
                     background: %s;
@@ -50,12 +52,16 @@ namespace Color {
             index = i;
             get_style_context ().add_class (index.to_string ());
             
-            var adjust_button = new Gtk.Button.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            var adjust_button = new Gtk.ToggleButton ();
+            adjust_button.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             adjust_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             adjust_button.vexpand = true;
-            adjust_button.valign = Gtk.Align.END;
+            adjust_button.margin_top = 24;
+            adjust_button.valign = Gtk.Align.START;
             adjust_button.halign = Gtk.Align.CENTER;
             adjust_button.get_style_context ().add_class ("button-" + index.to_string ());
+
+            color_popover = new Widgets.Popovers.Color (adjust_button);
 
             var adjust_revealer = new Gtk.Revealer ();
             adjust_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -92,8 +98,10 @@ namespace Color {
             second_label.label = convert_rgb ("#363B3E");
 
             this.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-            this.enter_notify_event.connect ( (event) => {
-                adjust_revealer.reveal_child = true;
+            this.enter_notify_event.connect ((event) => {
+                if (edit != true) {
+                    adjust_revealer.reveal_child = true;
+                }
 
                 return false;
             });
@@ -102,9 +110,25 @@ namespace Color {
                 if (event.detail == Gdk.NotifyType.INFERIOR) {
                     return false;
                 }
-                adjust_revealer.reveal_child = false;
+
+                if (edit != true) {
+                    adjust_revealer.reveal_child = false;
+                }
 
                 return false;
+            });
+
+            adjust_button.toggled.connect (() => {
+                if (adjust_button.active) {
+                    edit = true;
+                    color_popover.show_all ();
+                }
+            });
+
+            color_popover.closed.connect (() => {
+                adjust_button.active = false;
+                edit = false;
+                adjust_revealer.reveal_child = false; 
             });
         }
 
