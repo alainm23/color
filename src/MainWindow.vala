@@ -80,6 +80,7 @@ namespace Color {
             palette_03 = new Widgets.Palette (3);
             palette_04 = new Widgets.Palette (4);
             palette_05 = new Widgets.Palette (5);
+            palette_05.margin_right = 6;
 
             var main_grid = new Gtk.Grid ();
             main_grid.expand = true;

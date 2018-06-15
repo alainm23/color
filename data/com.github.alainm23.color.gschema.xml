@@ -24,11 +24,5 @@
       <summary>Window Height</summary>
       <description>Saves the window height for restoring it later.</description>
     </key>
-
-    <key name="dark" type="b">
-      <default>false</default>
-      <summary>Use dark mode</summary>
-      <description>Use dark mode</description>
-    </key>
   </schema>
 </schemalist>
