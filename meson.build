@@ -27,7 +27,9 @@ executable(
     'src/MainWindow.vala',
     'src/Widgets/Headerbar.vala',
     'src/Widgets/Palette.vala',
+    'src/Widgets/PaletteButton.vala',
     'src/Widgets/Popovers/Color.vala',
+    'src/Widgets/Popovers/Palette.vala',
     'src/Services/Settings.vala',
     'src/Dialogs/Preferences.vala',
     dependencies: [

@@ -19,16 +19,24 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-namespace Color {
-    public class Services.Settings : Granite.Services.Settings {
-        public int window_width { get; set; }
-        public int window_height { get; set; }
-        public int window_x { get; set; }
-        public int window_y { get; set; }
-        public bool dark { get; set; }
+namespace Color { 
+    public class Widgets.Popovers.Palette : Gtk.Popover {
+        private Gtk.Stack main_stack;
 
-        public Settings () {
-            base ("com.github.alainm23.color");
+        public Palette (Gtk.Widget relative) {
+            relative_to = relative;
+            modal = true;
+            position = Gtk.PositionType.BOTTOM;
+
+            build_ui ();
+        }
+
+        private void build_ui () {
+            main_stack = new Gtk.Stack ();
+            main_stack.expand = true;
+            main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+            
+            add (main_stack);
         }
     }
 }

@@ -23,13 +23,18 @@ namespace Color {
     public class Dialogs.Preferences : Gtk.Dialog {
         public MainWindow window { get; construct; }
         private Gtk.Switch dark_theme_switch;
-        
+        private Services.Settings settings;
+
         public Preferences () {
             title = _("Preferences");
-            border_width = 12;
+            border_width = 6;
             deletable = true;
             resizable = false;
             transient_for = window;
+            width_request = 450;
+            height_request = 300;
+
+            settings = new Services.Settings ();
 
             build_ui ();
         }
@@ -38,12 +43,11 @@ namespace Color {
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.expand = true;
-            main_grid.height_request = 50;
-            main_grid.width_request = 200;
 
             var dark_mode_label = new Granite.HeaderLabel (_("Dark Mode"));
             
             dark_theme_switch = new Gtk.Switch ();
+            dark_theme_switch.active = settings.dark;
             dark_theme_switch.valign = Gtk.Align.CENTER;
 
             var dark_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -51,8 +55,12 @@ namespace Color {
             dark_box.pack_start (dark_mode_label, false, false, 0);
             dark_box.pack_end (dark_theme_switch, false, false, 0);
 
+            dark_theme_switch.notify["active"].connect (() => {
+                settings.dark = dark_theme_switch.active;
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = dark_theme_switch.active;
+            });          
+
             main_grid.add (dark_box);
-            
             get_content_area ().add (main_grid);
         }
     }

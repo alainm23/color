@@ -44,12 +44,12 @@ namespace Color {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/alainm23/color");
 
-            //Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-
             settings = new Services.Settings ();
             var window_x = settings.window_x;
             var window_y = settings.window_y;
             move (window_x, window_y);
+
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.dark;
 
             var window_width = settings.window_width;
             var window_height = settings.window_height;
@@ -75,6 +75,7 @@ namespace Color {
         private void build_ui () {
             headerbar = new Widgets.Headerbar ();
 
+            /*
             palette_01 = new Widgets.Palette (1);
             palette_02 = new Widgets.Palette (2);
             palette_03 = new Widgets.Palette (3);
@@ -93,6 +94,7 @@ namespace Color {
             main_grid.add (palette_05);
         
             add (main_grid);
+            */
             set_titlebar (headerbar);
             show_all ();
         }

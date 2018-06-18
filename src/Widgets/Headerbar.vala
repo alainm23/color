@@ -22,19 +22,25 @@
 namespace Color {
     public class Widgets.Headerbar : Gtk.HeaderBar {
         private Dialogs.Preferences preferences_dialog;
-        private Gtk.MenuButton app_menu;
+        private Gtk.Button app_menu;
+        private Gtk.Button back_button;
+        private Gtk.Button next_button;
+        private Widgets.PaletteButton palette_button;
+        private Widgets.Popovers.Palette palette_popover;
+
 
         public Headerbar () {
             set_show_close_button (true);
             get_style_context ().add_class ("compact");
-            //get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
             build_ui ();
         }
 
         private void build_ui () {
-            app_menu = new Gtk.MenuButton ();
-            app_menu.image = new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR);
+            //back_button = new Gtk.Button.from_icon_name ("document-revert", Gtk.IconSize.LARGE_TOOLBAR);
+            //next_button = new Gtk.Button.from_icon_name ("document-revert-rtl", Gtk.IconSize.LARGE_TOOLBAR);
+            
+            app_menu = new Gtk.Button.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR);
             app_menu.tooltip_text = _("Preferences");
             app_menu.sensitive = true;
 
@@ -44,7 +50,19 @@ namespace Color {
                 preferences_dialog.show_all ();
             });
 
-            //pack_end (app_menu);
+            palette_button = new Widgets.PaletteButton ();
+            palette_popover = new Widgets.Popovers.Palette (palette_button);
+            
+            palette_button.clicked.connect (() => {
+                palette_popover.show_all ();
+
+            });
+            
+            //pack_start (back_button);
+            //pack_start (next_button);
+
+            set_custom_title (palette_button);
+            pack_end (app_menu);
         }
     }
 }
