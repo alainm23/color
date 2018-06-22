@@ -27,8 +27,10 @@ namespace Color {
         public Color (Gtk.Widget relative) {
             relative_to = relative;
             modal = true;
-            position = Gtk.PositionType.BOTTOM;
-
+            position = Gtk.PositionType.LEFT;
+            
+            height_request = 300;
+            width_request = 300;
 
             build_ui ();
         }

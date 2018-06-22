@@ -31,8 +31,8 @@ namespace Color {
             deletable = true;
             resizable = false;
             transient_for = window;
-            width_request = 450;
-            height_request = 300;
+            width_request = 482;
+            height_request = 350;
 
             settings = new Services.Settings ();
 

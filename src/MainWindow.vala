@@ -22,13 +22,8 @@
 namespace Color {
     public class MainWindow : Gtk.Window {
         private Widgets.Headerbar headerbar;
+        private Widgets.ActionBar action_bar;
         private Services.Settings settings;
-
-        private Widgets.Palette palette_01;
-        private Widgets.Palette palette_02;
-        private Widgets.Palette palette_03;
-        private Widgets.Palette palette_04; 
-        private Widgets.Palette palette_05;
 
         public MainWindow (Gtk.Application application) {
             Object (
@@ -73,29 +68,67 @@ namespace Color {
         }
 
         private void build_ui () {
-            headerbar = new Widgets.Headerbar ();
+            get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
 
-            /*
-            palette_01 = new Widgets.Palette (1);
-            palette_02 = new Widgets.Palette (2);
-            palette_03 = new Widgets.Palette (3);
-            palette_04 = new Widgets.Palette (4);
-            palette_05 = new Widgets.Palette (5);
-            palette_05.margin_right = 6;
+            headerbar = new Widgets.Headerbar ();
+            set_titlebar (headerbar);
+
+            action_bar = new Widgets.ActionBar ();
+
+            var flow_box = new Gtk.FlowBox ();
+            flow_box.selection_mode = Gtk.SelectionMode.NONE;
+            flow_box.activate_on_single_click = false;
+            flow_box.max_children_per_line = 5;
+            flow_box.expand = true;
+            flow_box.margin = 24;
+            flow_box.row_spacing = 24;
+            flow_box.column_spacing = 24;
+            flow_box.homogeneous = true;
+            flow_box.valign = Gtk.Align.START;
+            flow_box.halign = Gtk.Align.START;
+
+            var scrolled = new Gtk.ScrolledWindow (null, null);
+            scrolled.expand = true;
+            scrolled.add (flow_box);
+
+            flow_box.add (new Widgets.Color(1));
+            
+            flow_box.add (new Widgets.Color(2));
+            flow_box.add (new Widgets.Color(3));
+            
+            flow_box.add (new Widgets.Color(4));
+            flow_box.add (new Widgets.Color(5));
+            flow_box.add (new Widgets.Color(6));
+                
+            flow_box.add (new Widgets.Color(9));
+            flow_box.add (new Widgets.Color(10));
+            flow_box.add (new Widgets.Color(11));
+            flow_box.add (new Widgets.Color(12));
+            flow_box.add (new Widgets.Color(13));
+            flow_box.add (new Widgets.Color(14));
+            flow_box.add (new Widgets.Color(15));
+            
+            flow_box.add (new Widgets.Color(16));
+            flow_box.add (new Widgets.Color(17));
+            flow_box.add (new Widgets.Color(18));
+            flow_box.add (new Widgets.Color(19));
+            flow_box.add (new Widgets.Color(20));
+            flow_box.add (new Widgets.Color(21));
+            flow_box.add (new Widgets.Color(22));
+            flow_box.add (new Widgets.Color(23));
+            flow_box.add (new Widgets.Color(24));
+            flow_box.add (new Widgets.Color(25));
+            
+            var action_bar = new Widgets.ActionBar ();
 
             var main_grid = new Gtk.Grid ();
+            main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.expand = true;
-            main_grid.column_homogeneous = true;
 
-            main_grid.add (palette_01);
-            main_grid.add (palette_02);
-            main_grid.add (palette_03);
-            main_grid.add (palette_04);
-            main_grid.add (palette_05);
-        
+            main_grid.add (scrolled);
+            main_grid.add (action_bar);
+
             add (main_grid);
-            */
-            set_titlebar (headerbar);
             show_all ();
         }
 
