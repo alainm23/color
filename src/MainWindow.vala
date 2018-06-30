@@ -68,7 +68,7 @@ namespace Color {
         }
 
         private void build_ui () {
-            get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+            //get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
 
             headerbar = new Widgets.Headerbar ();
             set_titlebar (headerbar);
@@ -77,7 +77,6 @@ namespace Color {
 
             var flow_box = new Gtk.FlowBox ();
             flow_box.selection_mode = Gtk.SelectionMode.NONE;
-            flow_box.activate_on_single_click = false;
             flow_box.max_children_per_line = 5;
             flow_box.expand = true;
             flow_box.margin = 24;
@@ -98,8 +97,8 @@ namespace Color {
             
             flow_box.add (new Widgets.Color(4));
             flow_box.add (new Widgets.Color(5));
+            
             flow_box.add (new Widgets.Color(6));
-                
             flow_box.add (new Widgets.Color(9));
             flow_box.add (new Widgets.Color(10));
             flow_box.add (new Widgets.Color(11));

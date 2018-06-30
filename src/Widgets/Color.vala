@@ -20,11 +20,14 @@
 */
 
 namespace Color { 
-    public class Widgets.Color : Gtk.Grid {
+    public class Widgets.Color : Gtk.EventBox {
         private Gtk.Entry color_entry;
         private Gtk.Label second_label;
         private Widgets.Popovers.Color color_popover;
+        
+        private Gtk.Button remove_button;
         private Gtk.Revealer remove_revealer;
+
 
         private int index;
         private bool edit = false;
@@ -37,7 +40,6 @@ namespace Color {
             """;
 
         public Color (int i) {
-            //var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             var main_box = new Gtk.Grid ();
             main_box.orientation = Gtk.Orientation.VERTICAL;
             main_box.expand = true;
@@ -46,13 +48,14 @@ namespace Color {
             get_style_context ().add_class (Gtk.STYLE_CLASS_BUTTON);
             get_style_context ().add_class (index.to_string ());
 
-            height_request = 110;
-            width_request = 178;
+            height_request = 115;
+            width_request = 186;
 
             color_entry = new Gtk.Entry ();
             color_entry.placeholder_text = "#hexadecimal";
             color_entry.max_length = 7;
             color_entry.xalign = 0.5f;
+            color_entry.margin_bottom = 6;
             color_entry.valign = Gtk.Align.END;
             color_entry.get_style_context ().remove_class (Gtk.STYLE_CLASS_ENTRY);
             color_entry.get_style_context ().add_class ("h3");
@@ -74,7 +77,6 @@ namespace Color {
                 return false;
             });
         
-
             color_entry.changed.connect (() => {
                 add_styles (color_entry.text);
                 second_label.label = convert_rgb (color_entry.text);
